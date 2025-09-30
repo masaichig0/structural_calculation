@@ -29,5 +29,3 @@ Screening-level structural checks for deck cover beams, posts, connectors, wind 
 - Values are screening-level—not a substitute for an engineer’s sealed design.
 - See `Connectors` sheet for the allowable loads database.
 
-## License
-MIT (or your choice)
