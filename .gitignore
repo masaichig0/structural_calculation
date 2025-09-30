@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.pkl
+*.so
+
+# Virtual environment
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter/IPython
+.ipynb_checkpoints/
+*.ipynb
+
+# IDE/editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.DS_Store
+*.code-workspace
+
+# Logs & temp
+*.log
+*.tmp
+*.bak
+
+# Excel temp/backup files
+~$*.xls*
+*.xlsx.autosave
+
+# Local configs
+config.json
+secrets.json
+
+# Build & packaging
+build/
+dist/
+*.egg-info/
+
+# OS-specific
+Thumbs.db
+desktop.ini
