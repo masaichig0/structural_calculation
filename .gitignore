@@ -33,6 +33,9 @@ ENV/
 # Excel temp/backup files
 ~$*.xls*
 *.xlsx.autosave
+*.xlsm
+excel/
+
 
 # Local configs
 config.json
