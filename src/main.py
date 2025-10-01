@@ -33,6 +33,8 @@ def main(xlsx_path: str):
     fchk = footing_checks(inputs, results)
     write_footing_results(xlsx_path, fchk, start_row=r + 2)
 
+    
+
 if __name__ == "__main__":
     xlsx = sys.argv[1] if len(sys.argv) > 1 else r"excel\Deck_Screening_Template.xlsm"
     main(xlsx)

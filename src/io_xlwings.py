@@ -1,8 +1,12 @@
 # src/io_xlwings.py
 from typing import Dict, Any, Tuple, List
 import xlwings as xw
+import os
 from .models import Inputs
 from .connectors import ConnectorSpecTop, ConnectorSpecBase
+
+_APP = None
+_WB = None
 
 LABELS = [
     "span_ft","tributary_width_ft","beam_b_in","beam_d_in",
@@ -195,3 +199,59 @@ def write_footing_results(wb_path: str, fchk, start_row: int) -> int:
 
     sht.autofit()
     return r
+
+def _get_book(wb_path: str):
+    """
+    Open (or attach to) the Excel workbook exactly once per process.
+    - If called from Excel (xw.Book.caller), just return that book.
+    - Otherwise, reuse a cached workbook if already opened.
+    - Otherwise, attach to an already-open instance of the same file.
+    - Otherwise, open it in a single visible Excel App and cache both.
+    """
+    global _APP, _WB
+    abspath = os.path.abspath(wb_path)
+
+    # 1) Running from Excel? (e.g., macro button)
+    try:
+        wb = xw.Book.caller()
+        return wb
+    except Exception:
+        pass
+
+    # 2) If we already opened and cached it, reuse
+    if _WB is not None:
+        try:
+            # Accessing .name will raise if the wb is closed
+            _ = _WB.name
+            return _WB
+        except Exception:
+            _WB = None  # cache stale; fall through
+
+    # 3) Try to find an already-open workbook in any running Excel app
+    try:
+        for app in xw.apps:
+            for wb in app.books:
+                try:
+                    if os.path.abspath(wb.fullname).lower() == abspath.lower():
+                        _APP = app
+                        _WB = wb
+                        return _WB
+                except Exception:
+                    # wb.fullname can fail for unsaved/blank books; ignore
+                    continue
+    except Exception:
+        # If xw.apps iteration fails, we’ll open a new app below
+        pass
+
+    # 4) Open a single visible app if none found, then open the book
+    _APP = _APP if (_APP and _APP.pid) else xw.App(visible=True)
+    _APP.display_alerts = True
+    _APP.screen_updating = True
+
+    _WB = _APP.books.open(abspath)
+    return _WB
+
+
+
+        
+
