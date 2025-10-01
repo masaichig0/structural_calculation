@@ -10,6 +10,20 @@ Screening-level structural checks for deck cover beams, posts, connectors, wind 
 - Wind uplift per post, lateral line load
 - Footing checks: bearing, sliding, uplift
 
+## Documentation
+
+> Short, engineer-friendly PDFs you can open in your browser.
+
+1) **Inputs Glossary** — what every input means, units, how it’s used, defaults, and source links  
+   👉 [Input_glossary.pdf](./Input_glossary.pdf)
+
+2) **Calculation Check** — all formulas with units (loads → actions → stresses → deflection → column), so anyone can verify the math step by step  
+   👉 [Calculation_check.pdf](./Calculation_check.pdf)
+
+3) **Result Numbers Explained** — maps each Results row/term to its meaning and pass/check logic  
+   👉 [ResultNumberExplain.pdf](./ResultNumberExplain.pdf)
+
+
 ## How to run
 1. Install Python 3.x
 2. `pip install -r requirements.txt`
